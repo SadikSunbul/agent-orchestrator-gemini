@@ -111,21 +111,10 @@ func (c *Client) ExecuteAgent(agentt *agent.Agent, params map[string]interface{}
 
 	register := agent.NewRegistry()
 
-	// Mock yanıt (gerçek Gemini API çağrısı için değiştir)
-	switch agentt.Name {
-	case "weather-agent":
-		agent, ok := register.GetAgent(agentt.Name)
-		if !ok {
-			return "", fmt.Errorf("agent bulunamadı: %s", agentt.Name)
-		}
-		return agent.Execute(params)
-	case "translate-agent":
-		agent, ok := register.GetAgent(agentt.Name)
-		if !ok {
-			return "", fmt.Errorf("agent bulunamadı: %s", agentt.Name)
-		}
-		return agent.Execute(params)
-	default:
-		return "", fmt.Errorf("desteklenmeyen agent: %s", agentt.Name)
+	agent, ok := register.GetAgent(agentt.Name)
+	if !ok {
+		return "", fmt.Errorf("agent bulunamadı: %s", agentt.Name)
 	}
+	return agent.Execute(params)
+
 }

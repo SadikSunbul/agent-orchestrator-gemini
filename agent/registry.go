@@ -34,6 +34,7 @@ func (r *Registry) registerAgents() {
 				return "", fmt.Errorf("Geçersiz şehir parametresi")
 			}
 			fmt.Println("Hava durumu agenti çalıştırıldı")
+			fmt.Println("Buraya çalışmasını istediğiniz kodu yazabilirsiniz")
 			return fmt.Sprintf("(Mock data)%s için hava durumu: 22°C, nem %65, rüzgar 12 km/s, parçalı bulutlu", city), nil
 		},
 	}
@@ -42,7 +43,6 @@ func (r *Registry) registerAgents() {
 		Name: "translate-agent",
 		Execute: func(params map[string]interface{}) (string, error) {
 			text, ok := params["text"].(string)
-			fmt.Println("Çeviri agenti çalıştırıldı")
 			if !ok {
 				return "", fmt.Errorf("Geçersiz metin parametresi")
 			}
@@ -50,6 +50,8 @@ func (r *Registry) registerAgents() {
 			if !ok {
 				return "", fmt.Errorf("Geçersiz dil parametresi")
 			}
+			fmt.Println("Çeviri agenti çalıştırıldı")
+			fmt.Println("Buraya çalışmasını istediğiniz kodu yazabilirsiniz")
 
 			// Mock çeviri API'si
 			if text == "Merhaba" && toLang == "es" {
