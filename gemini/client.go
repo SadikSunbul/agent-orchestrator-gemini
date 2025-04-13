@@ -1,7 +1,6 @@
 package gemini
 
 import (
-	"agent-orchestrator/agent"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -104,17 +103,4 @@ Görev: Aşağıdaki agent'lardan hangisi uygun? Seç ve parametreleri belirt.
        "parametre1": "değer1",
     }
 }`, input)
-}
-
-// ExecuteAgent, seçilen agent için Gemini'yi kullanarak işi yapar
-func (c *Client) ExecuteAgent(agentt *agent.Agent, params map[string]interface{}) (string, error) {
-
-	register := agent.NewRegistry()
-
-	agent, ok := register.GetAgent(agentt.Name)
-	if !ok {
-		return "", fmt.Errorf("agent bulunamadı: %s", agentt.Name)
-	}
-	return agent.Execute(params)
-
 }

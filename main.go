@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"os"
 
-	"agent-orchestrator/gemini"
-	"agent-orchestrator/orchestrator"
+	"agent-orchestrator-gemini/gemini"
+	"agent-orchestrator-gemini/orchestrator"
 )
 
 func main() {
 	// Gemini API istemcisi (gerçek bir API anahtarı ile değiştir)
-	geminiClient := gemini.NewClient("your-api-key")
+	geminiClient := gemini.NewClient("AIzaSyCMBntWwbQFxWHP3PWCwbatMekWpDdH2VM")
 
 	// Orchestrator oluştur
 	orch := orchestrator.New(geminiClient)

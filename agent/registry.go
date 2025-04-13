@@ -33,9 +33,8 @@ func (r *Registry) registerAgents() {
 			if !ok {
 				return "", fmt.Errorf("Geçersiz şehir parametresi")
 			}
-			fmt.Println("Hava durumu agenti çalıştırıldı")
-			fmt.Println("Buraya çalışmasını istediğiniz kodu yazabilirsiniz")
-			return fmt.Sprintf("(Mock data)%s için hava durumu: 22°C, nem %65, rüzgar 12 km/s, parçalı bulutlu", city), nil
+			// İlgili hava durumu sorgulama işlemlerini burada yapın
+			return fmt.Sprintf("%s için hava durumu agenti çalıştırıldı.", city), nil
 		},
 	}
 
@@ -50,14 +49,8 @@ func (r *Registry) registerAgents() {
 			if !ok {
 				return "", fmt.Errorf("Geçersiz dil parametresi")
 			}
-			fmt.Println("Çeviri agenti çalıştırıldı")
-			fmt.Println("Buraya çalışmasını istediğiniz kodu yazabilirsiniz")
-
-			// Mock çeviri API'si
-			if text == "Merhaba" && toLang == "es" {
-				return "(Mock data)Hola", nil
-			}
-			return "", fmt.Errorf("Desteklenmeyen çeviri: %s -> %s", text, toLang)
+			// İlgili çeviri işlemlerini burada yapın
+			return fmt.Sprintf("Çeviri: %s -> %s agenti çalıştırıldı.", text, toLang), nil
 		},
 	}
 }
