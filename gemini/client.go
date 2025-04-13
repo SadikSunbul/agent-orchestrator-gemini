@@ -106,32 +106,8 @@ Görev: Aşağıdaki agent'lardan hangisi uygun? Seç ve parametreleri belirt.
 }`, input)
 }
 
-// buildAgentPrompt, seçilen agent için özel prompt oluşturur
-func (c *Client) buildAgentPrompt(agent string, params map[string]interface{}) string {
-	switch agent {
-	case "weather-agent":
-		city := params["city"].(string)
-		return fmt.Sprintf(`Şehir: %s
-Görev: Bu şehir için detaylı hava durumu bilgisi ver. Sıcaklık, nem, rüzgar hızı ve genel durumu içermeli.
-Yanıt formatı: Doğal dilde, Türkçe olarak hava durumu açıklaması.`, city)
-	case "translate-agent":
-		text := params["text"].(string)
-		toLang := params["to"].(string)
-		return fmt.Sprintf(`Metin: %s
-Hedef Dil: %s
-Görev: Bu metni hedef dile çevir ve kültürel bağlamı koru.
-Yanıt formatı: Sadece çevrilmiş metin.`, text, toLang)
-	default:
-		return ""
-	}
-}
-
 // ExecuteAgent, seçilen agent için Gemini'yi kullanarak işi yapar
 func (c *Client) ExecuteAgent(agentt *agent.Agent, params map[string]interface{}) (string, error) {
-	prompt := c.buildAgentPrompt(agentt.Name, params)
-	if prompt == "" {
-		return "", fmt.Errorf("desteklenmeyen agent: %s", agentt.Name)
-	}
 
 	register := agent.NewRegistry()
 
