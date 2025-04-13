@@ -14,10 +14,12 @@ Bu proje, Google Gemini API'sini kullanarak çeşitli agent'ları (ajanları) y�
 1. **Hava Durumu Agent'ı (weather-agent)**
    - Şehir bazlı hava durumu bilgisi sağlar
    - Gerekli parametre: `city`
+   - Örnek kullanım: "İstanbul'un hava durumu nasıl?"
 
 2. **Çeviri Agent'ı (translate-agent)**
    - Metin çevirisi yapar
    - Gerekli parametreler: `text`, `to`
+   - Örnek kullanım: "Merhaba kelimesini İspanyolca'ya çevir"
 
 ## Kurulum
 
@@ -52,7 +54,33 @@ go run main.go
 
 Yeni bir agent eklemek için:
 
-1. `agent/registry.go` dosyasında `registerAgents` fonksiyonuna yeni agent'ı ekleyin
-2. `gemini/client.go` dosyasında `buildAgentPrompt` fonksiyonuna agent için özel prompt ekleyin
-3. `ExecuteAgent` fonksiyonunda yeni agent'ı işleyin
+1. `agent/registry.go` dosyasında `registerAgents` fonksiyonuna yeni agent'ı ekleyin:
+```go
+r.agents["yeni-agent"] = Agent{
+    Name: "yeni-agent",
+    Execute: func(params map[string]interface{}) (string, error) {
+        // Agent'ın çalışma mantığı
+        return "Sonuç", nil
+    },
+}
+```
+
+2. `gemini/client.go` dosyasında `buildPrompt` fonksiyonunda agent'ı tanımlayın:
+```go
+- yeni-agent: Açıklama, "parametre1" ve "parametre2" parametreleri gerekir.
+```
+
+## Proje Yapısı
+
+```
+.
+├── agent/
+│   └── registry.go      # Agent kayıt ve yönetimi
+├── gemini/
+│   └── client.go        # Gemini API entegrasyonu
+├── orchestrator/
+│   └── engine.go        # Agent orkestrasyonu
+├── main.go              # Ana uygulama
+└── README.md           # Dokümantasyon
+```
 
